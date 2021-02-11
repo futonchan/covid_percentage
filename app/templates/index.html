@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+      <head>
+        <title>{{name}}</title>
+      </head>
+      <body>
+        {% if name == "a" %}
+        <h1>Image</h1>
+        {% elif name %}
+        <h1>nameがそれ以外のとき</h1>
+        {% else %}
+        <h1> elseだよ</h1>
+        {% endif %}
+        <img src="/static/images/take.png" alt="takematsu">
+        {% for i in text %}
+        <p>{{i}}</p>
+        {% endfor %}
+      </body>
+</html>
