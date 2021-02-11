@@ -4,6 +4,7 @@
         <title>{{name}}</title>
       </head>
       <body>
+
         {% if name == "a" %}
         <h1>Image</h1>
         {% elif name %}
@@ -11,9 +12,18 @@
         {% else %}
         <h1> elseだよ</h1>
         {% endif %}
+
         <img src="/static/images/take.png" alt="takematsu">
+
         {% for i in text %}
         <p>{{i}}</p>
         {% endfor %}
+
+        <!-- POSTリクエスト送信フォーム POST設定, ボックスの設定, ボタンの設定-->
+        <form action="/index" method="POST">
+          <input type="text" name="name" placeholder="なんかかいとけ">
+          <input type="submit" value="POST送信">
+        </form>
+
       </body>
 </html>
