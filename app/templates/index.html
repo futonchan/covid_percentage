@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
       <head>
+        <!-- render_templateの引数に渡した変数を{{変数名}}でindex.html内で使える-->
         <title>{{name}}</title>
       </head>
       <body>
@@ -15,6 +16,7 @@
 
         <img src="/static/images/take.png" alt="takematsu">
 
+        <!-- データベースからの値を取得して表示-->
         {% for onegai in all_onegai %}
         <p>{{onegai.title}} : {{onegai.body}} {{onegai.date}}</p>
         {% endfor %}
@@ -22,6 +24,13 @@
         <form action="/index" method="POST">
           <input type="text" name="name" placeholder="なんかかいとけ">
           <input type="submit" value="POST送信">
+        </form>
+
+        <!-- app.pyの@app.route("/add", methods=["post"])と紐付け -->
+        <form action="/add" method="post">
+          <input type="text" name="title" placeholder="title">
+          <input type="text" name="body" placeholder="body">
+          <input type="submit" value="Add">
         </form>
 
       </body>
