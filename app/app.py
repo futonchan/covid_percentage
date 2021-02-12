@@ -36,8 +36,9 @@ def add():
     db_session.commit()
     return index() # returnに関数渡すこともできる
 
-@app.route("/update", methods=["post"])
+@app.route("/update",methods=["post"]) # ここの/updateはhtmlでつけた名前に従ってるだけ
 def update():
+    print(request.form)
     content = OnegaiContent.query.filter_by(id=request.form["update"]).first()
     content.title = request.form["title"]
     content.body = request.form["body"]
