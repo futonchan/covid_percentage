@@ -3,6 +3,8 @@
 #Flaskとrender_template（HTMLを表示させるための関数）をインポート
 from flask import Flask,render_template,request
 
+from models.models import OnegaiContent
+
 app = Flask(__name__) #Flaskインスタンスをappで宣言
 
 
@@ -11,15 +13,17 @@ app = Flask(__name__) #Flaskインスタンスをappで宣言
 @app.route("/") #「/」へアクセスがあった場合
 @app.route("/index") #「/index」へアクセスがあった場合
 def index():
+
     name = request.args.get("name")
-    text = ["ABC","HIROKI","YANO"]
-    return render_template("index.html",name=name,text=text) # index.htmlで使えるようになる
+    all_onegai = OnegaiContent.query.all()
+
+    return render_template("index.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
 
 @app.route("/index", methods=["post"]) # index.htmlからPOSTを受け取る側
 def post():
-    name = request.form["name"] #
-    text = ["ABC","HIROKI","YANO"]
-    return render_template("index.html",name=name,text=text) # index.htmlで使えるようになる
+    name = request.form["name"] #postした後はdef index()のページなくなる
+    all_onegai = OnegaiContent.query.all()
+    return render_template("index.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
 
 
 if __name__ == "__main__":
