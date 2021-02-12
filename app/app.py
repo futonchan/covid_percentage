@@ -15,35 +15,38 @@ app = Flask(__name__) #Flaskインスタンスをappで宣言
 @app.route("/") #「/」へアクセスしたとき
 @app.route("/index") #「/index」にアクセスしたとき
 def index():
-
+    print("def index")
     name = request.args.get("name")
-    all_onegai = OnegaiContent.query.all()
+    all_onegai = OnegaiContent.query.all() # SELECT ** FROM XX
 
     return render_template("index.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
 
 @app.route("/index", methods=["post"]) # /index からPOSTを受け取ったとき
 def post():
+    print("def post index")
     name = request.form["name"] # index.htmlのフォームのname指定した変数をnameに代入
-    all_onegai = OnegaiContent.query.all()
+    all_onegai = OnegaiContent.query.all() # SELECT ** FROM XX
     return render_template("index.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
 
 @app.route("/add", methods=["post"]) # /addからpostを受け取った時
 def add():
+    print("def add")
     title = request.form["title"]
     body = request.form["body"]
     content = OnegaiContent(title,body,datetime.now())
-    db_session.add(content)
+    db_session.add(content) # db_session... データベース接続用のインスタンス、database.pyで宣言してる
     db_session.commit()
     return index() # returnに関数渡すこともできる
 
 @app.route("/update",methods=["post"]) # ここの/updateはhtmlでつけた名前に従ってるだけ
 def update():
-    print(request.form)
+    print("def add")
+    print(request.form) # ImmutableMultiDict([('title', 'fff'), ('body', 'fffdsa'), ('update', '5')])
     content = OnegaiContent.query.filter_by(id=request.form["update"]).first()
     content.title = request.form["title"]
     content.body = request.form["body"]
     db_session.commit()
-    return index()
+    return index() # この後にindex()も実行するので、db表示される
 
 if __name__ == "__main__":
     app.run(debug=True)
