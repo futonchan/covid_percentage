@@ -12,8 +12,8 @@ app = Flask(__name__) #Flaskインスタンスをappで宣言
 
 # @...デコレータ、真下の行の関数を引数にとる
 # 呼び出し自体は真下の行の関数でおｋ、実行自体はデコレータが実行される
-@app.route("/") #「/」へアクセスがあった場合
-@app.route("/index") #「/index」へアクセスがあった場合
+@app.route("/") #「/」へアクセスしたとき
+@app.route("/index") #「/index」にアクセスしたとき
 def index():
 
     name = request.args.get("name")
@@ -21,13 +21,13 @@ def index():
 
     return render_template("index.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
 
-@app.route("/index", methods=["post"]) # index.htmlからPOSTを受け取る側
+@app.route("/index", methods=["post"]) # /index からPOSTを受け取ったとき
 def post():
     name = request.form["name"] # index.htmlのフォームのname指定した変数をnameに代入
     all_onegai = OnegaiContent.query.all()
     return render_template("index.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
 
-@app.route("/add", methods=["post"])
+@app.route("/add", methods=["post"]) # /addからpostを受け取った時
 def add():
     title = request.form["title"]
     body = request.form["body"]
@@ -35,6 +35,14 @@ def add():
     db_session.add(content)
     db_session.commit()
     return index() # returnに関数渡すこともできる
+
+@app.route("/update", methods=["post"])
+def update():
+    content = OnegaiContent.query.filter_by(id=request.form["update"]).first()
+    content.title = request.form["title"]
+    content.body = request.form["body"]
+    db_session.commit()
+    return index()
 
 if __name__ == "__main__":
     app.run(debug=True)
