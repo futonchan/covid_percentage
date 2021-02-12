@@ -26,6 +26,7 @@ def post():
     print("def post index")
     name = request.form["name"] # index.htmlのフォームのname指定した変数をnameに代入
     all_onegai = OnegaiContent.query.all() # SELECT ** FROM XX
+    # [<Title 'fdsaf'>, <Title 'っっっっっっｆ'>, <Title 'aaa'>] DBをリスト構造で全て出力された結果
     return render_template("index.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
 
 @app.route("/add", methods=["post"]) # /addからpostを受け取った時
@@ -47,6 +48,15 @@ def update():
     content.body = request.form["body"]
     db_session.commit()
     return index() # この後にindex()も実行するので、db表示される
+
+@app.route("/delete",methods=["post"])
+def delete():
+    id_list = request.form.getlist("delete")
+    for id in id_list:
+        content = OnegaiContent.query.filter_by(id=id).first()
+        db_session.delete(content)
+    db_session.commit()
+    return index()
 
 if __name__ == "__main__":
     app.run(debug=True)
