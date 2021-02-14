@@ -41,7 +41,7 @@ def add():
 
 @app.route("/update",methods=["post"]) # ここの/updateはhtmlでつけた名前に従ってるだけ
 def update():
-    print("def add")
+    print("def update")
     print(request.form) # ImmutableMultiDict([('title', 'fff'), ('body', 'fffdsa'), ('update', '5')])
     content = OnegaiContent.query.filter_by(id=request.form["update"]).first()
     content.title = request.form["title"]
@@ -51,6 +51,7 @@ def update():
 
 @app.route("/delete",methods=["post"])
 def delete():
+    print("def delete")
     id_list = request.form.getlist("delete")
     for id in id_list:
         content = OnegaiContent.query.filter_by(id=id).first()
