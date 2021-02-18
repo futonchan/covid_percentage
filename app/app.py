@@ -2,13 +2,14 @@
 
 #Flaskとrender_template（HTMLを表示させるための関数）をインポート
 from flask import Flask,render_template,request
+from flask_bootstrap import Bootstrap
 
 from models.models import OnegaiContent
 from models.database import db_session # 普通の変数もインポートできるんだ
 from datetime import datetime
 
 app = Flask(__name__) #Flaskインスタンスをappで宣言
-
+Bootstrap = Bootstrap(app)
 
 # @...デコレータ、真下の行の関数を引数にとる
 # 呼び出し自体は真下の行の関数でおｋ、実行自体はデコレータが実行される
@@ -21,15 +22,15 @@ def index():
 
     return render_template("index.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
 
-@app.route("/index", methods=["post"]) # /index からPOSTを受け取ったとき
+@app.route("/index", methods=["post"]) #htmlのformactionの名前が/indexで、POSTを受け取ったとき
 def post():
     print("def post index")
     name = request.form["name"] # index.htmlのフォームのname指定した変数をnameに代入
     all_onegai = OnegaiContent.query.all() # SELECT ** FROM XX
     # [<Title 'fdsaf'>, <Title 'っっっっっっｆ'>, <Title 'aaa'>] DBをリスト構造で全て出力された結果
-    return render_template("index.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
+    return render_template("bootstrap.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
 
-@app.route("/add", methods=["post"]) # /addからpostを受け取った時
+@app.route("/add", methods=["post"]) # htmlのformactionの名前が/addからpostを受け取った時
 def add():
     print("def add")
     title = request.form["title"]
@@ -39,7 +40,7 @@ def add():
     db_session.commit()
     return index() # returnに関数渡すこともできる
 
-@app.route("/update",methods=["post"]) # ここの/updateはhtmlでつけた名前に従ってるだけ
+@app.route("/update",methods=["post"]) # htmlのformactionの名前がupdate
 def update():
     print("def update")
     print(request.form) # ImmutableMultiDict([('title', 'fff'), ('body', 'fffdsa'), ('update', '5')])
