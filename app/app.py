@@ -28,7 +28,7 @@ def post():
     name = request.form["name"] # index.htmlのフォームのname指定した変数をnameに代入
     all_onegai = OnegaiContent.query.all() # SELECT ** FROM XX
     # [<Title 'fdsaf'>, <Title 'っっっっっっｆ'>, <Title 'aaa'>] DBをリスト構造で全て出力された結果
-    return render_template("bootstrap.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
+    return render_template("jmap_test.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
 
 @app.route("/add", methods=["post"]) # htmlのformactionの名前が/addからpostを受け取った時
 def add():
