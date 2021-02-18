@@ -1,9 +1,14 @@
 # できること
 + WebページからDBの編集、読み込み
 + URL変えずに内容変更
++ かんたんJQuery
++ jmap設置
 
 # 構成
 Flask--gunicorn(WSGI)--Heroku(Webサーバ)
+bootstrap
+JQuery
+jmap
 
 # herokuについて
 ## 準備
