@@ -10,7 +10,68 @@
 <script type="text/javascript" src="/static/js/jmap.js"></script>
 <script type = "text/javascript">
     $(document).ready(function() {
-        $('#jmap').jmap();
+        $('#jmap').jmap({
+            width: "100%",
+            height: "500px",
+            prefectureNameType: 'full',
+            showHeatmap: true,
+            showRoundedPrefecture: true,
+            heatmapLabelUnit: '人',
+            heatmapType: 'HRed',
+            showHeatlabel: true,
+            onSelect: function(e, data) {
+                alert('人口は：%d 人です。'.replace('%d', (data.option.number).toLocaleString()));
+            },
+            areas: [
+            {code: 1,name: "北海道",number: 5212462},
+            {code: 2,name: "青森県",number: 1230535},
+            {code: 3,name: "岩手県",number: 1212201},
+            {code: 4,name: "宮城県",number: 2292690},
+            {code: 5,name: "秋田県",number: 952069},
+            {code: 6,name: "山形県",number: 1064954},
+            {code: 7,name: "福島県",number: 1830114},
+            {code: 8,name: "茨城県",number: 2854131},
+            {code: 9,name: "栃木県",number: 1932091},
+            {code: 10,name: "群馬県",number: 1926370},
+            {code: 11,name: "埼玉県",number: 7343453},
+            {code: 12,name: "千葉県",number: 6281394},
+            {code: 13,name: "東京都",number: 13971109},
+            {code: 14,name: "神奈川県",number: 9214151},
+            {code: 15,name: "新潟県",number: 2199746},
+            {code: 16,name: "富山県",number: 1034670},
+            {code: 17,name: "石川県",number: 1130159},
+            {code: 18,name: "福井県",number: 762679},
+            {code: 19,name: "山梨県",number: 806210},
+            {code: 20,name: "長野県",number: 2034145},
+            {code: 21,name: "岐阜県",number: 1974142},
+            {code: 22,name: "静岡県",number: 3618972},
+            {code: 23,name: "愛知県",number: 7541123},
+            {code: 24,name: "三重県",number: 1767615},
+            {code: 25,name: "滋賀県",number: 1412415},
+            {code: 26,name: "京都府",number: 2568427},
+            {code: 27,name: "大阪府",number: 8817372},
+            {code: 28,name: "兵庫県",number: 5438891},
+            {code: 29,name: "奈良県",number: 1322970},
+            {code: 30,name: "和歌山県",number: 914055},
+            {code: 31,name: "鳥取県",number: 551402},
+            {code: 32,name: "島根県",number: 666941},
+            {code: 33,name: "岡山県",number: 1882356},
+            {code: 34,name: "広島県",number: 2794862},
+            {code: 35,name: "山口県",number: 1341506},
+            {code: 36,name: "徳島県",number: 721269},
+            {code: 37,name: "香川県",number: 948801},
+            {code: 38,name: "愛媛県",number: 1326487},
+            {code: 39,name: "高知県",number: 689785},
+            {code: 40,name: "福岡県",number: 5106774},
+            {code: 41,name: "佐賀県",number: 808821},
+            {code: 42,name: "長崎県",number: 1310660},
+            {code: 43,name: "熊本県",number: 1735901},
+            {code: 44,name: "大分県",number: 1124983},
+            {code: 45,name: "宮崎県",number: 1063759},
+            {code: 46,name: "鹿児島県",number: 1587342},
+            {code: 47,name: "沖縄県",number: 1458839}
+            ]
+        });
     });
 </script>
 {% endblock %}
