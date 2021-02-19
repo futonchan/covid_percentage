@@ -5,10 +5,10 @@
 + jmap設置
 
 # 構成
-Flask--gunicorn(WSGI)--Heroku(Webサーバ)
-bootstrap
-JQuery
-jmap
++ Flask--gunicorn(WSGI)--Heroku(Webサーバ)
++ bootstrap
++ JQuery
++ jmap
 
 # herokuについて
 ## 準備
@@ -49,3 +49,4 @@ heroku open
 
 # 参考
 https://qiita.com/kiyokiyo_kzsby/items/0184973e9de0ea9011ed
+https://mickey-happygolucky.hatenablog.com/entry/2018/03/29/012822
