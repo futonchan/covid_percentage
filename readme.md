@@ -3,6 +3,7 @@
 + URL変えずに内容変更
 + かんたんJQuery
 + jmap設置
++ JSONファイルの読み込み
 
 # 構成
 + Flask--gunicorn(WSGI)--Heroku(Webサーバ)

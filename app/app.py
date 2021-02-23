@@ -25,10 +25,14 @@ def index():
 @app.route("/index", methods=["post"]) #htmlのformactionの名前が/indexで、POSTを受け取ったとき
 def post():
     print("def post index")
-    name = request.form["name"] # index.htmlのフォームのname指定した変数をnameに代入
-    all_onegai = OnegaiContent.query.all() # SELECT ** FROM XX
+    # name = request.form["name"] # index.htmlのフォームのname指定した変数をnameに代入
+    # all_onegai = OnegaiContent.query.all() # SELECT ** FROM XX
     # [<Title 'fdsaf'>, <Title 'っっっっっっｆ'>, <Title 'aaa'>] DBをリスト構造で全て出力された結果
-    return render_template("jmap_test.html",name=name,all_onegai=all_onegai) # index.htmlで使えるようになる
+
+    # 人口取得 now_covids=now_covids
+
+    # ここで現在の感染者数と、人口を渡す
+    return render_template("jmap_test.html") # index.htmlで使えるようになる
 
 @app.route("/add", methods=["post"]) # htmlのformactionの名前が/addからpostを受け取った時
 def add():
