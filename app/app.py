@@ -8,6 +8,9 @@ from models.models import OnegaiContent
 from models.database import db_session # 普通の変数もインポートできるんだ
 from datetime import datetime
 
+import csv
+import os
+
 app = Flask(__name__) #Flaskインスタンスをappで宣言
 Bootstrap = Bootstrap(app)
 
@@ -30,9 +33,21 @@ def post():
     # [<Title 'fdsaf'>, <Title 'っっっっっっｆ'>, <Title 'aaa'>] DBをリスト構造で全て出力された結果
 
     # 人口取得 now_covids=now_covids
+    path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "static/csv/nhk_news_covid19_prefectures_daily_data.csv")
+    print(path)
+
+    csvfile = open(path,encoding="utf-8")
+    prefnames = {}
+    for index, row in enumerate(csv.reader(csvfile)):
+        if index == 0:
+            continue
+        row_prefname = row[2]
+        row_covid_total_num = int(row[4])
+        prefnames[row_prefname] = row_covid_total_num
+
 
     # ここで現在の感染者数と、人口を渡す
-    return render_template("jmap_test.html") # index.htmlで使えるようになる
+    return render_template("jmap_test.html", pref_covid_total_dict=prefnames) # index.htmlで使えるようになる
 
 @app.route("/add", methods=["post"]) # htmlのformactionの名前が/addからpostを受け取った時
 def add():

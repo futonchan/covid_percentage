@@ -4,12 +4,16 @@
 {% block content %}
 <div id="jmap"></div>
 <div id="demo"></div>
+<!-- {{pref_covid_total_dict}} -->
 {% endblock %}
 
 {% block scripts %}
 {{ super() }}
-<script type="text/javascript" src="/static/js/jmap.js"></script>
-<script type = "text/javascript">
+<script src="/static/js/jmap.js"></script>
+<script>
+    pref_covid_index = {{pref_covid_total_dict|tojson}}
+    console.log(pref_covid_index)
+    
     $(document).ready(function() {
         $('#jmap').jmap({
             width: "100%",
@@ -22,7 +26,7 @@
             showHeatlabel: true,
             // クリック時に人数指定して、（例えば）10人中何人感染者がいるか出す
             onSelect: function(e, data) {
-                alert('pref の人口は：%d 人です。'.replace('%d', (data.option.number).toLocaleString()).replace("pref", data.option.name) );
+                alert('pref の人口は：%d 人です。'.replace('%d', (data.option.number).toLocaleString()).replace("pref", data.option.name) + "\n" + " このうちコロナ感染者は" + String(pref_covid_index[data.option.name]) + "人で、割合は" + String(pref_covid_index[data.option.name] / data.option.number *100) + "％です" );
             },
             areas: [
             {code: 1,name: "北海道",number: 5212462},
@@ -73,31 +77,6 @@
             {code: 46,name: "鹿児島県",number: 1587342},
             {code: 47,name: "沖縄県",number: 1458839}
             ]
-        });
-
-        $.getJSON("/static/json/Covid19JapanAll.json", function(data){
-            var
-              ulObj = $("#demo"),
-              len = data.itemList.length,
-              pref_infect_dict = {}
-
-            for(var i=0; i<len; i++){
-                if(pref_infect_dict[String(data.itemList[i].name_jp)]) {
-                    pref_infect_dict[String(data.itemList[i].name_jp)] += 1
-                }
-                else{
-                    pref_infect_dict[String(data.itemList[i].name_jp)] = 1
-                }
-                // ulObj.append($("<li>").text(data.itemList[i].npatients));
-                // ulObj.append($("<li>").text(data.itemList[i].name_jp));
-            }
-            for (var k in pref_infect_dict) {
-                console.log("項目：" + k);
-                console.log("内容：" + pref_infect_dict[k]);
-            }
-            // console.log(pref_infect_dict)
-            // ulObj.append(pref_infect_dict)
-            // console.log(ulObj)
         });
     });
 </script>
