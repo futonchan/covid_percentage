@@ -1,3 +1,10 @@
+# Todo
+- [x] データ撮ってくる
+- [ ] NHKクレジット表記
+- [ ] covid割合でヒートマップ
+- [ ] 完治者数と死亡者の割合表示
+
+
 # できること
 + WebページからDBの編集、読み込み
 + URL変えずに内容変更
@@ -52,3 +59,4 @@ heroku open
 https://qiita.com/kiyokiyo_kzsby/items/0184973e9de0ea9011ed
 https://mickey-happygolucky.hatenablog.com/entry/2018/03/29/012822
 https://yugokimura.github.io/jmap/#quickstart
+https://mycodingjp.blogspot.com/2018/11/python-flask-javascript.html
