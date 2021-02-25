@@ -13,22 +13,8 @@
 <script>
     pref_covid_index = {{pref_covid_total_dict|tojson}}
     console.log(pref_covid_index)
-    
-    $(document).ready(function() {
-        $('#jmap').jmap({
-            width: "100%",
-            height: "500px",
-            prefectureNameType: 'full',
-            showHeatmap: true,
-            showRoundedPrefecture: true,
-            heatmapLabelUnit: '人',
-            heatmapType: 'HRed',
-            showHeatlabel: true,
-            // クリック時に人数指定して、（例えば）10人中何人感染者がいるか出す
-            onSelect: function(e, data) {
-                alert('pref の人口は：%d 人です。'.replace('%d', (data.option.number).toLocaleString()).replace("pref", data.option.name) + "\n" + " このうちコロナ感染者は" + String(pref_covid_index[data.option.name]) + "人で、割合は" + String(pref_covid_index[data.option.name] / data.option.number *100) + "％です" );
-            },
-            areas: [
+
+    areas_kari = [
             {code: 1,name: "北海道",number: 5212462},
             {code: 2,name: "青森県",number: 1230535},
             {code: 3,name: "岩手県",number: 1212201},
@@ -77,6 +63,29 @@
             {code: 46,name: "鹿児島県",number: 1587342},
             {code: 47,name: "沖縄県",number: 1458839}
             ]
+    pref_pop = {}
+    for(var i=0; i<47; i++){
+        pref_pop[areas_kari[i]["name"]] = areas_kari[i]["number"]
+
+        areas_kari[i]["number"] =  pref_covid_index[areas_kari[i]["name"]] / areas_kari[i]["number"] * 100
+        // console.log(areas_kari[i]["number"])
+    }
+
+    $(document).ready(function() {
+        $('#jmap').jmap({
+            width: "100%",
+            height: "500px",
+            prefectureNameType: 'full',
+            showHeatmap: true,
+            showRoundedPrefecture: true,
+            heatmapLabelUnit: '人',
+            heatmapType: 'HRed',
+            showHeatlabel: true,
+            // クリック時に人数指定して、（例えば）10人中何人感染者がいるか出す
+            onSelect: function(e, data) {
+                alert(String(data.option.name) + "の人口は"+  String(pref_pop[data.option.name]) + "人で、合計コロナ感染者の割合は" + String(data.option.number) + "％ です")
+            },
+            areas:areas_kari
         });
     });
 </script>
