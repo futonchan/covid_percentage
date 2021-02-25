@@ -1,9 +1,27 @@
 {% extends "bootstrap/base.html" %}
 {% block title %}Covid-19 感染者割合マップ{% endblock %}
+<!-- {% block head %}
+{{super()}}
+<style type="text/css">
+    #jmap {
+        box-sizing: border-box;
+    }
+</style>
+{% endblock %} -->
 
 {% block content %}
+{{super()}}
+<h1>コロナ感染者割合マップ</h1>
 <div id="jmap"></div>
+
+{%- block footer %}
+<footer>情報: <a href="https://www3.nhk.or.jp/news/special/coronavirus/">NHK新型コロナウイルス関連データ</a></footer>
+<footer>情報: <a href="https://uub.jp/pjn/pb20201001.html">都道府県の人口・面積・人口密度（2020年（令和2年））</a></footer>
+{%- endblock footer %}
+
 {% endblock %}
+
+
 
 {% block scripts %}
 {{ super() }}
