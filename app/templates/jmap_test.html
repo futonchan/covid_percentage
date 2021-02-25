@@ -1,10 +1,8 @@
 {% extends "bootstrap/base.html" %}
-{% block title %}Hello{% endblock %}
+{% block title %}Covid-19 感染者割合マップ{% endblock %}
 
 {% block content %}
 <div id="jmap"></div>
-<div id="demo"></div>
-<!-- {{pref_covid_total_dict}} -->
 {% endblock %}
 
 {% block scripts %}
@@ -67,7 +65,7 @@
     for(var i=0; i<47; i++){
         pref_pop[areas_kari[i]["name"]] = areas_kari[i]["number"]
 
-        areas_kari[i]["number"] =  pref_covid_index[areas_kari[i]["name"]] / areas_kari[i]["number"] * 100
+        areas_kari[i]["number"] =  (pref_covid_index[areas_kari[i]["name"]] / areas_kari[i]["number"] * 100).toPrecision(4)
         // console.log(areas_kari[i]["number"])
     }
 
@@ -80,10 +78,9 @@
             showRoundedPrefecture: true,
             heatmapLabelUnit: '％',
             heatmapType: 'HRed',
-            showHeatlabel: true,
             // クリック時に人数指定して、（例えば）10人中何人感染者がいるか出す
             onSelect: function(e, data) {
-                alert(String(data.option.name) + "の人口は"+  String(pref_pop[data.option.name]) + "人で、合計コロナ感染者の割合は" + String(data.option.number) + "％ です")
+                alert(String(data.option.name) + "の人口は"+  pref_pop[data.option.name].toLocaleString() + "人で、これまでの感染者は" + pref_covid_index[data.option.name] + "人でした。\n" + "割合は" + String(data.option.number) + "％ です")
             },
             areas:areas_kari
         });
