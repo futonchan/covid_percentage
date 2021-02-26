@@ -1,8 +1,8 @@
 # Todo
 - [x] データ撮ってくる
-- [ ] NHKクレジット表記
+- [x] NHKクレジット表記
 - [x] covid割合でヒートマップ
-- [ ] 完治者数と死亡者の割合表示
+- [x] 完治者数と死亡者の割合表示
 - [ ] herokuで自動データ取得
 
 
@@ -55,6 +55,12 @@ git push heroku master
 ```
 heroku open
 ```
+
+# ファイル説明
+### run.py
+注意点:
+herokuにアップするには、IPを0.0.0.0固定の必要がある。
+
 
 # 参考
 https://qiita.com/kiyokiyo_kzsby/items/0184973e9de0ea9011ed
