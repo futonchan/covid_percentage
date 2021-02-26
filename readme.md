@@ -66,7 +66,7 @@ herokuにアップするには、IPを0.0.0.0固定の必要がある。
 
 
 # 参考
-https://qiita.com/kiyokiyo_kzsby/items/0184973e9de0ea9011ed
-https://mickey-happygolucky.hatenablog.com/entry/2018/03/29/012822
-https://yugokimura.github.io/jmap/#quickstart
-https://mycodingjp.blogspot.com/2018/11/python-flask-javascript.html
++ https://qiita.com/kiyokiyo_kzsby/items/0184973e9de0ea9011ed
++ https://mickey-happygolucky.hatenablog.com/entry/2018/03/29/012822
++ https://yugokimura.github.io/jmap/#quickstart
++ https://mycodingjp.blogspot.com/2018/11/python-flask-javascript.html
