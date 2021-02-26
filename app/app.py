@@ -37,13 +37,15 @@ def post():
     print(path)
 
     csvfile = open(path,encoding="utf-8")
-    prefnames = {}
+    prefnames = {} # {"県名": [コロナ合計感染者数, 死亡者数]}
     for index, row in enumerate(csv.reader(csvfile)):
         if index == 0:
             continue
         row_prefname = row[2]
         row_covid_total_num = int(row[4])
-        prefnames[row_prefname] = row_covid_total_num
+        row_covid_total_dead = int(row[6])
+
+        prefnames[row_prefname] = [row_covid_total_num, row_covid_total_dead]
 
 
     # ここで現在の感染者数と、人口を渡す

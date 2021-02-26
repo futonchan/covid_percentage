@@ -1,24 +1,51 @@
 {% extends "bootstrap/base.html" %}
+
 {% block title %}Covid-19 感染者割合マップ{% endblock %}
-<!-- {% block head %}
+
+{% block head %}
 {{super()}}
 <style type="text/css">
-    #jmap {
-        box-sizing: border-box;
+    .container {
+        display: flex;
+    }
+    .frameL {
+        background-color:#e0ffff;
+        max-width:600px;
+        flex: 1;
+    }
+    .frameR {
+        background-color: #ffe4af;
+        flex: 1;
+        padding: 0.5em;
     }
 </style>
-{% endblock %} -->
+
+<!--見やすい政府コロナ情報 https://www.mhlw.go.jp/content/000699304.pdf-->
+<!-- 東京都コロナ データ分析結果とコメント https://www.fukushihoken.metro.tokyo.lg.jp/iryo/kansen/monitoring.html-->
+<!-- 以下は2/26現在時点での情報 -->
+<!-- 分かりやすい現状説明と疑問の解決 「緊急事態宣言から1ヶ月 なかなか入院患者や重症者が減らないのはなぜ？」 https://news.yahoo.co.jp/byline/kutsunasatoshi/20210206-00221255/ -->
+{% endblock %}
 
 {% block content %}
 {{super()}}
 <h1>コロナ感染者割合マップ</h1>
-<div id="jmap"></div>
+<div class="container">
+    <div class="frameL">
+        <div id="jmap"></div>
+    </div>
+    <div class="frameR">
+        <h2>詳細情報</h2>
+        <div id="covid_pref_text">都道府県名をクリックするとここに詳細情報が表示されます</div>
+        <canvas id="covid_graph1"></canvas>
+        <div id = "covid_pref_text_dead"></div>
+        <canvas id="covid_graph2"></canvas>
+    </div>
+</div>
 
 {%- block footer %}
 <footer>情報: <a href="https://www3.nhk.or.jp/news/special/coronavirus/">NHK新型コロナウイルス関連データ</a></footer>
 <footer>情報: <a href="https://uub.jp/pjn/pb20201001.html">都道府県の人口・面積・人口密度（2020年（令和2年））</a></footer>
 {%- endblock footer %}
-
 {% endblock %}
 
 
@@ -26,8 +53,9 @@
 {% block scripts %}
 {{ super() }}
 <script src="/static/js/jmap.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script>
-    pref_covid_index = {{pref_covid_total_dict|tojson}}
+    pref_covid_index = {{pref_covid_total_dict|tojson}} // {"県名": [感染者数, 死亡者数]}
     console.log(pref_covid_index)
 
     areas_kari = [
@@ -78,19 +106,21 @@
             {code: 45,name: "宮崎県",number: 1063759},
             {code: 46,name: "鹿児島県",number: 1587342},
             {code: 47,name: "沖縄県",number: 1458839}
-            ]
-    pref_pop = {}
+            ] // 後にコロナ感染者の割合がnumberに代入される
+    pref_pop = {} // {"県名": 人口}
     for(var i=0; i<47; i++){
         pref_pop[areas_kari[i]["name"]] = areas_kari[i]["number"]
 
-        areas_kari[i]["number"] =  (pref_covid_index[areas_kari[i]["name"]] / areas_kari[i]["number"] * 100).toPrecision(4)
-        // console.log(areas_kari[i]["number"])
+        areas_kari[i]["number"] =  (pref_covid_index[areas_kari[i]["name"]][0] / areas_kari[i]["number"] * 100).toPrecision(4)
     }
 
     $(document).ready(function() {
         $('#jmap').jmap({
             width: "100%",
             height: "500px",
+            backgroundColor: '#e0ffff',
+            backgroundRadius: '0.5rem',
+            backgroundPadding: '0.5rem',
             prefectureNameType: 'full',
             showHeatmap: true,
             showRoundedPrefecture: true,
@@ -98,7 +128,46 @@
             heatmapType: 'HRed',
             // クリック時に人数指定して、（例えば）10人中何人感染者がいるか出す
             onSelect: function(e, data) {
-                alert(String(data.option.name) + "の人口は"+  pref_pop[data.option.name].toLocaleString() + "人で、これまでの感染者は" + pref_covid_index[data.option.name] + "人でした。\n" + "割合は" + String(data.option.number) + "％ です")
+                // テキスト生成
+                var elm = document.getElementById("covid_pref_text")
+                elm.textContent = String(data.option.name) + "の人口は"+  pref_pop[data.option.name].toLocaleString() + "人で、これまでの感染者は" + pref_covid_index[data.option.name][0].toLocaleString() + "人でした。\n" + "割合は" + String(data.option.number) + "％ です。"
+
+                // 円グラフ生成
+                new Chart(document.getElementById("covid_graph1"), {
+                    type: "pie",
+                    data: {
+                        labels: [data.option.name + "の人口", "陽性者"],
+                        datasets: [
+                            {
+                                data: [pref_pop[data.option.name] - pref_covid_index[data.option.name][0], pref_covid_index[data.option.name][0]],
+                                backgroundColor: [
+                                    "rgb(54, 162, 235)",
+                                    "rgb(255, 99, 132)"
+                                ]
+                            }
+                        ]
+                    }
+                });
+
+                var elm2 = document.getElementById("covid_pref_text_dead")
+                elm2.textContent = "陽性者" + pref_covid_index[data.option.name][0].toLocaleString() + "人のうち、死亡したのは" +  pref_covid_index[data.option.name][1].toLocaleString() + "人のため、死亡率は" + String((pref_covid_index[data.option.name][1]/pref_covid_index[data.option.name][0] * 100).toPrecision(4)) + "％です。"
+
+                // 円グラフ2
+                new Chart(document.getElementById("covid_graph2"), {
+                    type: "pie",
+                    data: {
+                        labels: ["陽性者", "死亡者"],
+                        datasets: [
+                            {
+                                data: [pref_covid_index[data.option.name][0] - pref_covid_index[data.option.name][1], pref_covid_index[data.option.name][1]],
+                                backgroundColor: [
+                                    "rgb(255, 99, 132)",
+                                    "rgb(235, 10, 10)"
+                                ]
+                            }
+                        ]
+                    }
+                });
             },
             areas:areas_kari
         });
