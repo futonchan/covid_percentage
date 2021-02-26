@@ -56,6 +56,12 @@ git push heroku master
 heroku open
 ```
 
+# ファイル説明
+### run.py
+注意点:
+herokuにアップするには、IPを0.0.0.0固定の必要がある。
+
+
 # 参考
 https://qiita.com/kiyokiyo_kzsby/items/0184973e9de0ea9011ed
 https://mickey-happygolucky.hatenablog.com/entry/2018/03/29/012822
