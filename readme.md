@@ -17,7 +17,7 @@ https://testflask-app-hiroki.herokuapp.com/
 + JSONファイルの読み込み
 
 # 構成
-+ Flask--gunicorn(WSGI)--Heroku(Webサーバ)
++ Flask--gunicorn(WSGIサーバ？)--Heroku(Webサーバ)
 + bootstrap
 + JQuery
 + jmap
@@ -34,6 +34,18 @@ pip freeze > requirements.txt
 ```
 web: gunicorn run:app --log-file=-
 ```
+これの意味 
++ Procfile 
+```
+<process type>: <command>
+```
+の形で定義する。
+タイプwebだけは特別であり、herokuからのHTTPトラフィックがルーティングされる模様。 他は任意。（https://devcenter.heroku.com/articles/procfile）
++ --log-file=-
+標準エラー出力にログを出力（現在はデフォルトでこれなのでなくてよい）
++ gunicorn
+WSGIって仕様のアプリを動かすサーバー？
+FlaskはWSGIって仕様に従っている
 
 ## heroku作業
 heroku CLIインスコする
