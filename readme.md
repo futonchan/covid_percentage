@@ -6,7 +6,7 @@ https://testflask-app-hiroki.herokuapp.com/
 - [x] NHKクレジット表記
 - [x] covid割合でヒートマップ
 - [x] 完治者数と死亡者の割合表示
-- [ ] herokuで自動データ取得
+- [x] herokuで自動データ取得
 - [ ] mac chrome で県をクリックするたび円グラフが倍の大きさになるとんでもないバグ潰す
 
 
