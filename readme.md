@@ -8,7 +8,7 @@ https://testflask-app-hiroki.herokuapp.com/
 - [x] 完治者数と死亡者の割合表示
 - [x] herokuで自動データ取得
 - [ ] mac chrome で県をクリックするたび円グラフが倍の大きさになるとんでもないバグ潰す
-
+- [ ] 陽性者のうち、完治した人を追加する
 
 # できること
 + WebページからDBの編集、読み込み
