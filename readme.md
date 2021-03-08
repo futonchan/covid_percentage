@@ -9,6 +9,7 @@ https://testflask-app-hiroki.herokuapp.com/
 - [x] ~heroku~ Github Actionsで自動データ取得、更新
 - [ ] mac, iphone chrome で県をクリックするたび円グラフが倍の大きさになるバグ潰す
 - [ ] 陽性者のうち、完治した人を追加する(データない?)
+- [ ] そもそもFlask使う必要性がない(CSV読む-> JSでできる、ルーティングも何も必要がない、データ取得はrequestでFlask関係ない)
 
 # できること
 + WebページからDBの編集、読み込み
@@ -18,10 +19,11 @@ https://testflask-app-hiroki.herokuapp.com/
 + JSONファイルの読み込み
 
 # 構成
-+ Flask--gunicorn(WSGIサーバ？)--Heroku(Webサーバ)
++ Flask--gunicorn(WSGIサーバ？)--Heroku(Webサーバ)(Githubと連携させてる)
 + bootstrap
 + JQuery
 + jmap
++ Github Actions
 
 # herokuについて
 ## 準備
@@ -35,8 +37,8 @@ pip freeze > requirements.txt
 ```
 web: gunicorn run:app --log-file=-
 ```
-これの意味 
-+ Procfile 
+これの意味
++ Procfile
 ```
 <process type>: <command>
 ```
