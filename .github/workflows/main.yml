@@ -38,7 +38,3 @@ jobs:
           git add -A
           git commit -m 'update data'
           git push
-          USER_ID: "YOUR_USER_ID"
-        run: |
-          # main.pyの実行
-          python main_01.py
