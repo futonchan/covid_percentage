@@ -17,6 +17,7 @@ https://testflask-app-hiroki.herokuapp.com/
 + かんたんJQuery
 + jmap設置
 + JSONファイルの読み込み
++ かんたんGithub Actions
 
 # 構成
 + Flask--gunicorn(WSGIサーバ？)--Heroku(Webサーバ)(Githubと連携させてる)
