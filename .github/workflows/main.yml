@@ -34,9 +34,8 @@ jobs:
       - name: Run script
         run: |
           # 実行
-          python get_data_nhk.py
+          python ./app/get_data_nhk.py
           git push
-          CHANNEL_ACCESS_TOKEN: "YOUR_CHANNEL_ACCESS_TOKEN"
           USER_ID: "YOUR_USER_ID"
         run: |
           # main.pyの実行
