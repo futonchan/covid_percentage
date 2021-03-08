@@ -1,11 +1,9 @@
 # アプリの動き(変数？)を書くところらしい
 
 #Flaskとrender_template（HTMLを表示させるための関数）をインポート
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,send_from_directory
 from flask_bootstrap import Bootstrap
 
-from models.models import OnegaiContent
-from models.database import db_session # 普通の変数もインポートできるんだ
 from datetime import datetime
 
 import csv
@@ -37,5 +35,6 @@ def index():
     # ここで現在の感染者数と、人口を渡す
     return render_template("index.html", pref_covid_total_dict=prefnames) # index.htmlで使えるようになる
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static/images'), 'favicon.ico', )
