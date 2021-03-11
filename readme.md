@@ -10,6 +10,7 @@ https://testflask-app-hiroki.herokuapp.com/
 - [ ] mac, iphone chrome で県をクリックするたび円グラフが倍の大きさになるバグ潰す
 - [ ] 陽性者のうち、完治した人を追加する(データない?)
 - [ ] そもそもFlask使う必要性がない(CSV読む-> JSでできる、ルーティングも何も必要がない、データ取得はrequestでFlask関係ない)
+- [ ] 会員登録制、住所によってLINE通知を送る
 
 # できること
 + WebページからDBの編集、読み込み
