@@ -9,7 +9,7 @@ name: get_data_covid_update
 # cron: '0 22 * * *' = JST AM7時(22:00 + 9時間)
 on:
   schedule:
-    - cron: '* */3 * * *'
+    - cron: '0 23 * * *'
 
 jobs:
   build:
