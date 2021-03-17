@@ -31,6 +31,11 @@ https://testflask-app-hiroki.herokuapp.com/
 ## 準備
 以下の全コマンドはGit管理してる親フォルダでやる
 
+必要なパッケージ(以下はHerokuでFlask動かすために最低必要)インストール
+```
+pip install Flask gunicorn
+```
+
 requirements.txtを生成
 ```
 pip freeze > requirements.txt
