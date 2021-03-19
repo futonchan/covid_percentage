@@ -54,8 +54,20 @@ web: gunicorn run:app --log-file=-
 + --log-file=-
 標準エラー出力にログを出力（現在はデフォルトでこれなのでなくてよい）
 + gunicorn
-WSGIって仕様のアプリを動かすサーバー？
-FlaskはWSGIって仕様に従っている
+WSGIサーバーの名前(他のWSGIサーバーはuWSGI, waitressなど)  
+WSGI...Webアプリとサーバーをつなぐ仕様、汎用的なインターフェイスの定義. Flaskの場合
+```
+app = Flask(...)
+```
+とかくが、app自体がWSGIアプリケーションとなる。
+Flask, Django, ZopeなどのFWで利用されている.
+
+> WSGIアプリケーションの仕様をまとめると
+> - 2つの引数を持った呼び出し可能なオブジェクト
+> - 第2引数として渡されたオブジェクトにHTTPステータスコードと[(レスポンスヘッダ, 値)]という値を渡して呼び出す
+> - 返り値にiterable objectを返す
+> - 返り値のiterableをiterateすると，文字列を返す  
+> 引用元(https://gihyo.jp/dev/feature/01/wsgi/0001?page=2)
 
 ## heroku作業
 heroku CLIインスコする
