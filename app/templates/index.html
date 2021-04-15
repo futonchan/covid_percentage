@@ -114,6 +114,14 @@
         areas_kari[i]["number"] =  (pref_covid_index[areas_kari[i]["name"]][0] / areas_kari[i]["number"] * 100).toPrecision(4)
     }
 
+    function makeChart(elmid, type, data){
+        var chart = new Chart(document.getElementById(elmid).getContext('2d'), {
+            type : type,
+            data: data
+        })
+        return chart
+    }
+
     $(document).ready(function() {
         $('#jmap').jmap({
             width: "100%",
@@ -132,11 +140,7 @@
                 var elm = document.getElementById("covid_pref_text")
                 elm.textContent = String(data.option.name) + "の人口は"+  pref_pop[data.option.name].toLocaleString() + "人で、これまでの感染者は" + pref_covid_index[data.option.name][0].toLocaleString() + "人でした。\n" + "割合は" + String(data.option.number) + "％ です。"
 
-                // 円グラフ生成
-                new Chart(document.getElementById("covid_graph1"), {
-                    type: "pie",
-                    data: {
-                        labels: [data.option.name + "の人口", "陽性者"],
+                var covid_data = {labels: [data.option.name + "の人口", "陽性者"],
                         datasets: [
                             {
                                 data: [pref_pop[data.option.name] - pref_covid_index[data.option.name][0], pref_covid_index[data.option.name][0]],
@@ -145,17 +149,14 @@
                                     "rgb(255, 99, 132)"
                                 ]
                             }
-                        ]
-                    }
-                });
+                        ]}
+                if(window.positiveChart) {window.positiveChart.destroy();}
+                window.positiveChart = makeChart("covid_graph1", "pie",covid_data)
 
                 var elm2 = document.getElementById("covid_pref_text_dead")
                 elm2.textContent = "陽性者" + pref_covid_index[data.option.name][0].toLocaleString() + "人のうち、死亡したのは" +  pref_covid_index[data.option.name][1].toLocaleString() + "人のため、死亡率は" + String((pref_covid_index[data.option.name][1]/pref_covid_index[data.option.name][0] * 100).toPrecision(4)) + "％です。"
 
-                // 円グラフ2
-                new Chart(document.getElementById("covid_graph2"), {
-                    type: "pie",
-                    data: {
+                covid_dead_data = {
                         labels: ["陽性者", "死亡者"],
                         datasets: [
                             {
@@ -167,7 +168,9 @@
                             }
                         ]
                     }
-                });
+                // 円グラフ2
+                if(window.deadChart) {window.deadChart.destroy();}
+                window.deadChart = makeChart("covid_graph2", "pie", covid_dead_data)
             },
             areas:areas_kari
         });
