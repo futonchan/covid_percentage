@@ -28,7 +28,9 @@
 
 {% block content %}
 {{super()}}
+<div class="container">
 <h1>コロナ感染者割合マップ</h1>
+</div>
 <div class="container">
     <div class="frameL">
         <div id="jmap"></div>
@@ -43,8 +45,10 @@
 </div>
 
 {%- block footer %}
+<div class="container">
 <footer>情報: <a href="https://www3.nhk.or.jp/news/special/coronavirus/">NHK新型コロナウイルス関連データ</a></footer>
-<footer>情報: <a href="https://uub.jp/pjn/pb20201001.html">都道府県の人口・面積・人口密度（2020年（令和2年））</a></footer>
+<footer>情報: <a href="https://uub.jp/pjn/pb20201001.html">都道府県の人口・面積・人口密度（2020年（令和2年））</a></footer>    
+</div>
 {%- endblock footer %}
 {% endblock %}
 
