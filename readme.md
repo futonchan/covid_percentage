@@ -3,7 +3,9 @@ https://covid19-jp-percentage.herokuapp.com/
 
 # 概要
 都道府県別の新型コロナウイルス感染者の割合を出すサイト
+
 masterにpushされるとGitHubActionsで最新データに更新してくれる
+
 自動更新は現在停止中
 
 # Todo
