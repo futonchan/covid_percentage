@@ -1,6 +1,9 @@
 # URL
 https://covid19-jp-percentage.herokuapp.com/
 
+# 概要
+都道府県別の新型コロナウイルス感染者の割合を出すサイト
+
 # Todo
 - [x] データ撮ってくる
 - [x] NHKクレジット表記
@@ -9,8 +12,6 @@ https://covid19-jp-percentage.herokuapp.com/
 - [x] ~heroku~ Github Actionsで自動データ取得、更新
 - [x] mac, iphone chrome で県をクリックするたび円グラフが倍の大きさになるバグ潰す
 - [ ] 陽性者のうち、完治した人を追加する(データない)
-- [ ] 会員登録制、住所によってLINE通知を送る
-
 
 # 参考
 + https://qiita.com/kiyokiyo_kzsby/items/0184973e9de0ea9011ed
